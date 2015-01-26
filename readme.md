@@ -11,15 +11,19 @@ Google Custom Search Engine API Python Wrapper
 ##Usage:
 
 Import the module
+
     from csepy import googlecse
 
 Use your secret key and custom search engine ID:
+
     x = googlecse(SECRET_KEY='YOUR_SECRET_KEY', CSE_ID='YOUR_CSE_ID')
 
 Grab the JSON results
+
     y = x.results(query='test')
 
 You can use a host of other parameters, but 'query' is required.  Check them out here: https://developers.google.com/custom-search/json-api/v1/reference/cse/list
 
 In case something went wrong, you view the URL that is generated:
+
     z = x.url(query='test')
