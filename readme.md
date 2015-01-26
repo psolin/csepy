@@ -2,13 +2,13 @@
 
 Google Custom Search Engine API Python Wrapper
 
-##Before you start:
+##Before you start
 
 * [Turn on Custom Search API by agreeing to the terms](https://console.developers.google.com/).  Note the API key.
 
 * [Create a custom search engine that works the way that you want it to work](https://www.google.com/cse/all).  Note its ID in the URL.
 
-##Usage:
+##Usage
 
 Import the module:
 
