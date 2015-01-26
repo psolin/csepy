@@ -16,7 +16,7 @@ class googlecse(object):
 		if kws['query'] == None:
 			return None
 
-		# Check the length of the API keys in case something happened
+		# Check the length of the API/CSE keys
 		if (len(self.CSE_ID) != 33) or (len(self.SECRET_KEY) != 39):
 			return None
 
@@ -51,6 +51,8 @@ class googlecse(object):
 				append_url_list('c2off', 0)
 			elif kws['c2off'] == False:
 				append_url_list('c2off', 1)
+		except:
+			pass
 
 
 		# Restrict the date to certain time periods, d, w, m, and y only.
