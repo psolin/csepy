@@ -1,6 +1,6 @@
 #csepy
 
-##Google Custom Search Engine API Python Wrapper
+Google Custom Search Engine API Python Wrapper
 
 ##Before you start:
 
