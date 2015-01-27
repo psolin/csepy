@@ -26,7 +26,7 @@ Grab the JSON results:
 
 You can use a host of other parameters, but 'query' is required.  Check them out here: https://developers.google.com/custom-search/json-api/v1/reference/cse/list
 
-In case something went wrong, you view the URL that is generated:
+In case something went wrong, you can view the URL that is generated:
 
     z = x.url(query='test')
 
@@ -38,4 +38,4 @@ With Google CSE, you have a limit of 10 pages of results (100 results max).  Eac
 
 ##Feedback
 
-Feel free to fork the project, file issues, or contact me at paulsolin.com.
+Feel free to fork the project, file issues, or contact me at [paulsolin.com](http://www.paulsolin.com).
