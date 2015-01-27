@@ -16,7 +16,7 @@ class googlecse(object):
 		if kws['query'] == None:
 			return None
 
-		# Check the length of the API keys in case something happened
+		# Check the length of the API/CSE keys
 		if (len(self.CSE_ID) != 33) or (len(self.SECRET_KEY) != 39):
 			return None
 
@@ -44,6 +44,15 @@ class googlecse(object):
 						break
 			except:
 				pass
+
+		# Enable or disable Traditional/Simplified Chinese
+		try:
+			if kws['c2off'] == True:
+				append_url_list('c2off', [0])
+			elif kws['c2off'] == False:
+				append_url_list('c2off', [1])
+		except:
+			pass
 
 
 		# Restrict the date to certain time periods, d, w, m, and y only.
@@ -227,6 +236,15 @@ class googlecse(object):
 		except:
 			pass
 
+		# If the page parameter is less than 11, increment the pages.  Or else, only do one page.
+		try:
+			if (kws['pages'] < 11) and (round(kws['pages']) == kws['pages']):
+				self.query_loop = kws['pages']
+			else:
+				self.query_loop = 1
+		except: 
+			self.query_loop = 1
+
 
 		# Results from a given site
 		append_url('siteSearch')
@@ -247,5 +265,48 @@ class googlecse(object):
 		
 		loaded_url = self.url(**kws)
 
-		# Load the JSON
-		return json.loads(urllib.urlopen(loaded_url).read())
+		data = ''
+
+		result_list = []
+		
+		for index in range(0, self.query_loop):
+			if index == 0:
+				current_loaded_url = loaded_url
+			else:
+				current_loaded_url = loaded_url + "&start=" + str(index*10)
+
+			data = json.loads(urllib.urlopen(current_loaded_url).read())
+
+			try:
+				# Search information
+				self.total_results = data['searchInformation']['totalResults']
+				self.formatted_total_results = data['searchInformation']['formattedTotalResults']
+				self.search_time = data['searchInformation']['searchTime']
+				self.formatted_search_time = data['searchInformation']['formattedSearchTime']
+				self.cse_title = data['context']['title']
+			except:
+				break
+
+			# If the total possible results is less than the max results through pages have been requested,
+			# end the for loop early, because it will waste precious API queries
+			if (float(self.total_results) % 10) > 1:
+				total_pages = (float(self.total_results) / 10) + 1
+			else:
+				total_pages = float(self.total_results) / 10
+
+			if (self.query_loop > total_pages) and (index == total_pages):
+				break
+			else:
+				pass
+
+			# The results
+			result_list.append(data['items'])
+
+			self.result_list = []
+
+			# Force every result to be a listing in a larger list
+			for result in result_list:
+				for listing in result:
+					self.result_list.append(listing)
+
+		return self

@@ -287,18 +287,6 @@ class googlecse(object):
 			except:
 				break
 
-			# If the total possible results is less than the max results through pages have been requested,
-			# end the for loop early, because it will waste precious API queries
-			if (float(self.total_results) % 10) > 1:
-				total_pages = (float(self.total_results) / 10) + 1
-			else:
-				total_pages = float(self.total_results) / 10
-
-			if (self.query_loop > total_pages) and (index == total_pages):
-				break
-			else:
-				pass
-
 			# The results
 			result_list.append(data['items'])
 
@@ -308,5 +296,19 @@ class googlecse(object):
 			for result in result_list:
 				for listing in result:
 					self.result_list.append(listing)
+
+
+			# If the total possible pages are less than the number of pages that 
+			# have been requested, end this for-loop early at this point,
+			# because it is pointless to make more requests
+			if (float(self.total_results) % 10) > 1:
+				total_pages = (float(self.total_results) / 10) + 1
+			else:
+				total_pages = float(self.total_results) / 10
+
+			if (self.query_loop > total_pages) and (index == total_pages):
+				break
+			else:
+				pass
 
 		return self
