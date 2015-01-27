@@ -48,9 +48,9 @@ class googlecse(object):
 		# Enable or disable Traditional/Simplified Chinese
 		try:
 			if kws['c2off'] == True:
-				append_url_list('c2off', 0)
+				append_url_list('c2off', [0])
 			elif kws['c2off'] == False:
-				append_url_list('c2off', 1)
+				append_url_list('c2off', [1])
 		except:
 			pass
 
