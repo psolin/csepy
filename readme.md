@@ -29,6 +29,7 @@ You can use a host of other parameters, but 'query' is required.  Check them out
 In case something went wrong, you can view the URL that is generated:
 
     z = x.url(query='test')
+    print z
 
 With Google CSE, you have a limit of 10 pages of results (100 results max).  Each page is considered to be its own separate API request.  You can specify how many pages of requests will go out by adding the following parameter to the 'results' function:
 
